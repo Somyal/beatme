@@ -1,0 +1,844 @@
+[
+  {
+    "id": "TC001",
+    "title": "Start a reflection and save it from the home page",
+    "description": "This verifies that a user can write a reflection and save it so today's entry is completed.",
+    "category": "Daily Reflection Editor",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /home"
+      },
+      {
+        "type": "action",
+        "description": "Type a reflection into the editor"
+      },
+      {
+        "type": "action",
+        "description": "Save the reflection"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify today's reflection is marked as completed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC002",
+    "title": "Complete a daily reflection with autosave",
+    "description": "Verifies a returning user can write a reflection on the home screen, allow autosave to persist it, and see today marked completed.",
+    "category": "Daily Reflection Editor",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /home"
+      },
+      {
+        "type": "action",
+        "description": "Fill in a reflection in the editor"
+      },
+      {
+        "type": "action",
+        "description": "Wait for autosave to complete"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the reflection is saved"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify today is marked as completed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC003",
+    "title": "Keep the app open when closing it after 10 PM with an unfinished reflection",
+    "description": "This verifies that attempting to close the app after 10 PM while today's reflection is still pending keeps the app active and returns the user to the reflection flow.",
+    "category": "System Shutdown & Window Close Interception",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /home"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the reflection editor with a short unfinished draft"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to close the app"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the reflection editor remains available"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify today is still marked as pending"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC004",
+    "title": "Stop shutdown while today's reflection is still pending after 10 PM",
+    "description": "This verifies that a shutdown attempt after 10 PM is delayed until the user completes or skips today's pending reflection.",
+    "category": "System Shutdown & Window Close Interception",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /home"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the reflection editor with a short unfinished draft"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to shut down the computer"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the app remains in focus"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the reflection flow is presented"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC005",
+    "title": "Automatically save an in-progress reflection after inactivity",
+    "description": "This verifies that a user's draft is persisted after a period of inactivity without pressing save.",
+    "category": "Daily Reflection Editor",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /home"
+      },
+      {
+        "type": "action",
+        "description": "Type a reflection into the editor"
+      },
+      {
+        "type": "action",
+        "description": "Wait for autosave to complete"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the draft is saved for today"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify today's status shows a completed or saved state"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC006",
+    "title": "Restore an unfinished draft",
+    "description": "Verifies a returning user with an unfinished draft can restore it on the home screen and continue from the previous content.",
+    "category": "Daily Reflection Editor",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /home"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a draft recovery prompt is visible"
+      },
+      {
+        "type": "action",
+        "description": "Restore the previous draft"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the draft content is loaded into the editor"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC007",
+    "title": "Restore an unfinished reflection after reopening the app",
+    "description": "This verifies that returning to /home with a previously unfinished draft presents the recovery choice and restores the draft when selected.",
+    "category": "System Shutdown & Window Close Interception",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /home"
+      },
+      {
+        "type": "action",
+        "description": "Fill in a reflection draft without saving it"
+      },
+      {
+        "type": "action",
+        "description": "Close the app"
+      },
+      {
+        "type": "action",
+        "description": "Reopen the app and navigate to /home"
+      },
+      {
+        "type": "action",
+        "description": "Choose to restore the previous draft"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the unfinished draft is restored in the reflection editor"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify today remains pending until the draft is saved"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC008",
+    "title": "Save a reflection with the keyboard shortcut",
+    "description": "This verifies that a user can save today's reflection using the keyboard shortcut and see the saved state.",
+    "category": "Daily Reflection Editor",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /home"
+      },
+      {
+        "type": "action",
+        "description": "Type a reflection into the editor"
+      },
+      {
+        "type": "action",
+        "description": "Press Ctrl+S"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify today's reflection is saved"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify today's status shows a completed state"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC009",
+    "title": "Allow closing the app after 10 PM once today's reflection is completed",
+    "description": "This verifies that closing the app after 10 PM proceeds normally when today's reflection has already been saved.",
+    "category": "System Shutdown & Window Close Interception",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /home"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the reflection editor with a completed reflection"
+      },
+      {
+        "type": "action",
+        "description": "Save the reflection"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to close the app"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the app closes normally"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify today's reflection is marked as completed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC010",
+    "title": "Allow shutdown after 10 PM once today's reflection is saved",
+    "description": "This verifies that a shutdown attempt after 10 PM proceeds normally after the user saves today's reflection.",
+    "category": "System Shutdown & Window Close Interception",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /home"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the reflection editor with a completed reflection"
+      },
+      {
+        "type": "action",
+        "description": "Save the reflection"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to shut down the computer"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the system action proceeds normally"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify today's reflection remains completed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC011",
+    "title": "Complete first onboarding and reach the home page",
+    "description": "This verifies that a first-time user can finish onboarding and land on the main reflection screen.",
+    "category": "Onboarding Welcome Screen",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /welcome"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the onboarding welcome screen is displayed"
+      },
+      {
+        "type": "action",
+        "description": "Complete onboarding"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the home page is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC012",
+    "title": "Complete first reflection from onboarding",
+    "description": "Verifies a first-time user can move from onboarding to the home screen and complete their first reflection so today is marked done.",
+    "category": "onboarding flow",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /welcome"
+      },
+      {
+        "type": "action",
+        "description": "Click the action to begin using the app"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user lands on the home screen"
+      },
+      {
+        "type": "action",
+        "description": "Fill in a reflection in the editor"
+      },
+      {
+        "type": "action",
+        "description": "Save the reflection"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify today is marked as completed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC013",
+    "title": "Skip today and confirm the decision",
+    "description": "This verifies that a user can intentionally skip the day and see that choice reflected in today's status.",
+    "category": "Daily Reflection Editor",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /home"
+      },
+      {
+        "type": "action",
+        "description": "Choose to skip today"
+      },
+      {
+        "type": "action",
+        "description": "Confirm the skip"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify today's status shows a skipped state"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC014",
+    "title": "Skip today with confirmation",
+    "description": "Verifies a user can intentionally skip today’s reflection and confirm the skip so today is recorded as skipped.",
+    "category": "Daily Reflection Editor",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /home"
+      },
+      {
+        "type": "action",
+        "description": "Open the skip today action"
+      },
+      {
+        "type": "action",
+        "description": "Confirm the skip"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify today is marked as skipped"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC015",
+    "title": "Restore an unfinished draft after returning to the app",
+    "description": "This verifies that a returning user can recover an unfinished draft and continue editing it.",
+    "category": "Daily Reflection Editor",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /home"
+      },
+      {
+        "type": "action",
+        "description": "Type a partial reflection into the editor"
+      },
+      {
+        "type": "action",
+        "description": "Wait for the draft to be preserved"
+      },
+      {
+        "type": "action",
+        "description": "Return to the home page with the unfinished draft present"
+      },
+      {
+        "type": "action",
+        "description": "Restore the previous draft"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the recovered draft is displayed in the editor"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC016",
+    "title": "Discard an unfinished reflection after reopening the app",
+    "description": "This verifies that returning to /home with a previously unfinished draft lets the user discard it and start fresh.",
+    "category": "System Shutdown & Window Close Interception",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /home"
+      },
+      {
+        "type": "action",
+        "description": "Fill in a reflection draft without saving it"
+      },
+      {
+        "type": "action",
+        "description": "Close the app"
+      },
+      {
+        "type": "action",
+        "description": "Reopen the app and navigate to /home"
+      },
+      {
+        "type": "action",
+        "description": "Choose to discard the previous draft"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the reflection editor is empty"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify today's reflection remains pending"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC017",
+    "title": "Review reflection history and search results",
+    "description": "Verifies a user can search the history list and see the reflections filtered to the entered keyword.",
+    "category": "Reflection History & Search",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /history"
+      },
+      {
+        "type": "action",
+        "description": "Fill in a keyword in the search field"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the reflection list is filtered to matching entries"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC018",
+    "title": "Review reflection history and search for past entries",
+    "description": "This verifies that a user can open history, search reflections, and see matching past entries.",
+    "category": "Reflection History & Search",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /history"
+      },
+      {
+        "type": "action",
+        "description": "Enter a search query for a past reflection"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify matching reflection entries are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC019",
+    "title": "Discard an unfinished draft",
+    "description": "Verifies a returning user can discard an unfinished draft on the home screen and return to a clean editor state.",
+    "category": "Daily Reflection Editor",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /home"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a draft recovery prompt is visible"
+      },
+      {
+        "type": "action",
+        "description": "Discard the previous draft"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the editor is empty"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC020",
+    "title": "Keep pending reflection state across returning to the app",
+    "description": "This verifies that today's pending reflection state is preserved locally when the user leaves and returns to the app without saving.",
+    "category": "System Shutdown & Window Close Interception",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /home"
+      },
+      {
+        "type": "action",
+        "description": "Fill in a reflection draft without saving it"
+      },
+      {
+        "type": "action",
+        "description": "Close the app"
+      },
+      {
+        "type": "action",
+        "description": "Reopen the app and navigate to /home"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the unfinished draft is available for recovery"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify today's reflection is still pending"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC021",
+    "title": "Open and close a past reflection in the read-only viewer",
+    "description": "This verifies that a user can inspect a saved reflection in the viewer and return to the history list.",
+    "category": "Reflection History & Search",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /history"
+      },
+      {
+        "type": "action",
+        "description": "Open a reflection from the history list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the read-only reflection viewer is displayed"
+      },
+      {
+        "type": "action",
+        "description": "Close the reflection viewer"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the history list is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC022",
+    "title": "View statistics dashboard metrics",
+    "description": "Verifies a user can open the statistics page and see the core consistency metrics needed for progress review.",
+    "category": "Streak and Consistency Stats",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /statistics"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify current streak, longest streak, total reflections, total words, average reflection length, and days missed are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC023",
+    "title": "Discard an unfinished draft after returning to the app",
+    "description": "This verifies that a returning user can remove an unfinished draft and return to a clean editor state.",
+    "category": "Daily Reflection Editor",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /home"
+      },
+      {
+        "type": "action",
+        "description": "Type a partial reflection into the editor"
+      },
+      {
+        "type": "action",
+        "description": "Wait for the draft to be preserved"
+      },
+      {
+        "type": "action",
+        "description": "Return to the home page with the unfinished draft present"
+      },
+      {
+        "type": "action",
+        "description": "Discard the previous draft"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the draft is removed from the editor"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC024",
+    "title": "Follow the first launch onboarding into the home reflection flow",
+    "description": "This verifies that a first-time user can complete onboarding from /welcome and land on /home ready to write or skip today's reflection.",
+    "category": "System Shutdown & Window Close Interception",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /welcome"
+      },
+      {
+        "type": "action",
+        "description": "Complete the onboarding flow"
+      },
+      {
+        "type": "action",
+        "description": "Proceed to the home screen"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the reflection editor is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify today's status is ready for a first reflection"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC025",
+    "title": "Open and close a reflection viewer",
+    "description": "Verifies a user can open a past reflection in read-only mode and close the viewer to return to the history list.",
+    "category": "Reflection History & Search",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /history"
+      },
+      {
+        "type": "action",
+        "description": "Open a reflection from the list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the read-only reflection viewer is visible"
+      },
+      {
+        "type": "action",
+        "description": "Close the reflection viewer"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the history list is visible"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC026",
+    "title": "View the activity heatmap on the home page",
+    "description": "This verifies that a user can inspect the contribution heatmap shown on the home page.",
+    "category": "Activity Heatmap",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /home"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the activity heatmap is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC027",
+    "title": "Reset all local data after confirmation",
+    "description": "Verifies a user can reset all local app data from settings and see the app return to an empty state.",
+    "category": "Backup & Settings Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /home"
+      },
+      {
+        "type": "action",
+        "description": "Open settings"
+      },
+      {
+        "type": "action",
+        "description": "Start the reset all data action"
+      },
+      {
+        "type": "action",
+        "description": "Confirm the reset"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify all local data is cleared"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC028",
+    "title": "Review current and long-term consistency statistics",
+    "description": "This verifies that a user can open the statistics page and see their streak and consistency summary.",
+    "category": "Streak and Consistency Stats",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /statistics"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify streak statistics are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify consistency summary data is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC029",
+    "title": "Manage startup preference and local backups",
+    "description": "Verifies a user can open settings from the home screen, change the startup preference, and export a local backup.",
+    "category": "Backup & Settings Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /home"
+      },
+      {
+        "type": "action",
+        "description": "Open settings"
+      },
+      {
+        "type": "action",
+        "description": "Toggle launch on startup"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the startup preference is updated"
+      },
+      {
+        "type": "action",
+        "description": "Export a local backup as SQLite"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a backup export is completed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC030",
+    "title": "Import a local backup after confirmation",
+    "description": "Verifies a user can import a SQLite or JSON backup from settings, confirm the import, and see restored local data.",
+    "category": "Backup & Settings Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /home"
+      },
+      {
+        "type": "action",
+        "description": "Open settings"
+      },
+      {
+        "type": "action",
+        "description": "Import a local backup file"
+      },
+      {
+        "type": "action",
+        "description": "Confirm the import"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify restored data is visible"
+      }
+    ],
+    "priority": "Medium"
+  }
+]

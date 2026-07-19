@@ -1,0 +1,145 @@
+version: "2"
+type: frontend
+tech_stack:
+  - TypeScript
+  - Rust
+  - React (v19)
+  - Tauri (v2)
+  - Tailwind CSS (v4)
+  - Zustand
+  - SQLite (via tauri-plugin-sql and rusqlite)
+  - DBus / zbus (for Linux system integration)
+  - Lucide React
+routes:
+  - path: /welcome
+    file: src/pages/Welcome.tsx
+    auth_required: false
+    description: Initial onboarding welcome page shown to new users
+  - path: /home
+    file: src/pages/Home.tsx
+    auth_required: false
+    description: Default page showing the reflection editor and contribution heatmap
+  - path: /history
+    file: src/pages/History.tsx
+    auth_required: false
+    description: History page with search functionality and list of reflections
+  - path: /statistics
+    file: src/pages/Statistics.tsx
+    auth_required: false
+    description: Dashboard displaying current/longest streak, average reflection length, and days missed
+features:
+  - name: Onboarding Welcome Screen
+    description: Welcomes user with the signature prompt "Did you beat yourself today?" on their first launch.
+    files:
+      - src/pages/Welcome.tsx
+      - src/stores/useSettingsStore.ts
+    entry_route: /welcome
+    user_interactions:
+      - Click on the START button to finish onboarding and access the home page.
+    api_calls: []
+    auth_required: false
+  - name: Daily Reflection Editor
+    description: Rich text area for writing daily reflections. Supports autosaving drafts (5-second debounce) and skipping the day.
+    files:
+      - src/components/ReflectionEditor.tsx
+      - src/stores/useReflectionsStore.ts
+      - src-tauri/src/shutdown.rs
+    entry_route: /home
+    user_interactions:
+      - Type reflection text into the textarea.
+      - Wait for 5 seconds to trigger autosave.
+      - Click Save Reflection button or press Ctrl+S to save.
+      - Click Skip Today button and confirm in the alert dialog to skip writing for today.
+      - Click Restore on the crash recovery banner to load a previous unsaved draft.
+      - Click Discard on the crash recovery banner to delete a previous unsaved draft.
+    api_calls:
+      - method: invoke
+        endpoint: get_today_status
+      - method: invoke
+        endpoint: save_today_reflection
+      - method: invoke
+        endpoint: skip_today_reflection
+      - method: invoke
+        endpoint: save_today_draft
+      - method: invoke
+        endpoint: get_historical_draft
+      - method: invoke
+        endpoint: discard_historical_draft
+    auth_required: false
+  - name: Streak and Consistency Stats
+    description: Calculates and displays total reflections, current/longest active streaks, average reflection word count, and total days missed.
+    files:
+      - src/pages/Statistics.tsx
+      - src/stores/useStatsStore.ts
+      - src/components/StatsCard.tsx
+    entry_route: /statistics
+    user_interactions:
+      - Check statistics dashboard cards.
+    api_calls: []
+    auth_required: false
+  - name: Activity Heatmap
+    description: Contributions-style calendar heatmap showing past completed and skipped days.
+    files:
+      - src/components/Heatmap.tsx
+      - src/pages/Home.tsx
+    entry_route: /home
+    user_interactions:
+      - Hover over cells to see reflection status (completed/skipped) and date.
+    api_calls: []
+    auth_required: false
+  - name: Reflection History & Search
+    description: Complete list of past reflections with search functionality and a read-only viewer modal.
+    files:
+      - src/pages/History.tsx
+      - src/components/HistoryList.tsx
+      - src/components/ReflectionViewer.tsx
+      - src/db/database.ts
+    entry_route: /history
+    user_interactions:
+      - Type keyword in search box.
+      - Click on a reflection card to open it in a read-only modal.
+      - Press Escape or click close button to close the viewer.
+    api_calls: []
+    auth_required: false
+  - name: Backup & Settings Management
+    description: Settings panel to enable/disable autostart, export/import database (SQLite / JSON), and clear all data.
+    files:
+      - src/components/SettingsModal.tsx
+      - src/services/AutostartService.ts
+      - src/stores/useSettingsStore.ts
+      - src-tauri/src/lib.rs
+    entry_route: /home
+    user_interactions:
+      - Toggle Launch on Startup switch.
+      - Click Export SQLite File or Export JSON Backup.
+      - Click Import SQLite File or Import JSON Backup and confirm in confirmation dialogs.
+      - Click Reset All Data and confirm in confirmation dialog.
+    api_calls:
+      - method: invoke
+        endpoint: export_db_file
+      - method: invoke
+        endpoint: import_db_file
+    auth_required: false
+  - name: System Shutdown & Window Close Interception
+    description: Restricts system shutdown and application quitting after 10 PM if the user hasn't written their daily reflection. Employs D-Bus inhibitor locks on Unix/freedesktop platforms.
+    files:
+      - src-tauri/src/shutdown.rs
+      - src-tauri/src/inhibitor.rs
+      - src-tauri/src/lib.rs
+      - src-tauri/src/window.rs
+    entry_route: /home
+    user_interactions:
+      - Close window via title bar (intercepted and hidden, or forced focus if after 10 PM and reflection pending).
+      - Quit application via system tray (intercepted similarly).
+      - Perform system shutdown/reboot/logout (intercepted via D-Bus signal; blocks shutdown, focuses app, displays overlay screen and exits only on reflection save/skip).
+    api_calls:
+      - method: invoke
+        endpoint: check_shutdown_intercepted
+    auth_required: false
+known_limitations:
+  - issue: D-Bus inhibitor integration is Linux/Unix-specific
+    location: src-tauri/src/inhibitor.rs
+    impact: System shutdown interception will only work on desktop environments running systemd logind. On Windows/macOS, only standard window events block closure.
+  - issue: Double SQLite integration layers
+    location: src/db/database.ts & src-tauri/src/db.rs
+    impact: Front-end queries use tauri-plugin-sql, while back-end shutdown handlers use direct rusqlite connections on the same database file, requiring WAL mode for concurrent access.
