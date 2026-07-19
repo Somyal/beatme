@@ -6,7 +6,7 @@ let dbInstance: Database | null = null;
 export async function getDatabase(): Promise<Database> {
   if (!dbInstance) {
     // Must use appDataDir() to match the Rust backend's app_data_dir().
-    // On Linux: ~/.local/share/com.beatme.app/beatme.db
+    // On Linux: ~/.local/share/com.gautam.beatme/beatme.db
     // Using bare "sqlite:beatme.db" resolves to AppConfig (~/.config) — a different directory.
     const dataDir = await appDataDir();
     dbInstance = await Database.load(`sqlite:${dataDir}/beatme.db`);

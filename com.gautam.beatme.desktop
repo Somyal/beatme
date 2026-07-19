@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=BeatMe
+GenericName=Daily Reflection Journal
+Comment=Daily reflection and beat tracking
+Exec=/usr/local/bin/BeatMe
+Icon=com.gautam.beatme
+Categories=Utility;
+StartupNotify=true
+Terminal=false
+Keywords=reflection;journal;habit;productivity;
+StartupWMClass=BeatMe
